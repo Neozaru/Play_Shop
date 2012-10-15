@@ -1,0 +1,12 @@
+@(user_login: String = "")
+
+@if(user_login && !user_login.isEmpty()){
+<h1>Welcome @user_login</h1>
+<form method="POST" action="logout"><input type="submit" value="Logout"></form>
+} else {
+You are not connected <br>
+<a href="login">Login</a>
+<a href="register">Register</a>
+}
+
+<div align="center">(Le Shop ici)</div>

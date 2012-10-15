@@ -1,0 +1,17 @@
+@(myForm: Form[structures.CustomerForm], errorMessage: String = "")
+@import structures.CustomerForm
+
+@if( errorMessage && !errorMessage.isEmpty() ) {
+<div style="font-weight:bold;color:red;" id="err_msg">Erreur : @errorMessage</div>
+}
+@helper.form(action = routes.Application.register_action()) {
+    
+    @helper.inputText(myForm("login"))
+    @helper.inputText(myForm("email"))
+    
+    @helper.inputPassword(myForm("password"))
+    @helper.inputPassword(myForm("password_confirmation"))
+    
+    <input type="submit" value="Register">
+    
+}
