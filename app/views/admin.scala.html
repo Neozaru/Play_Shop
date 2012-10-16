@@ -1,0 +1,39 @@
+@( products_list: List[models.ProductModel] = null, form_product : Form[models.ProductModel] = null, errorMessage: String = "" )
+
+@import models.ProductModel
+
+@if( errorMessage && !errorMessage.isEmpty() ) {
+<div style="font-weight:bold;color:red;" id="err_msg">Erreur : @errorMessage</div>
+}
+
+<form action="add_product" method="POST">
+
+@helper.form(action = routes.Application.add_product()) {
+    
+    @helper.inputText( form_product("label")    )
+    @helper.inputText( form_product("category") )
+    @** @helper.inputText( form_product("quantity"), value -> "0") **@
+    <input type="text" name="quantity" value="0" size="2"> <br>
+    
+	<input type="submit" value="Add Product">
+}
+
+<div align="left">
+@if(products_list != null && !products_list.isEmpty()){
+	<h3> Products </h3>
+	<ul>
+	@for(p : ProductModel <- products_list) {
+		<li>@p.label (x@p.quantity [+] [-]) 
+			<form action="delete_product" method="POST">
+				<input type="hidden" name="prod_id" value="@p.id">
+				<input type="submit" value="delete">
+			</form> 
+		</li>
+	}
+	</ul>
+} else {
+	(No products)
+}
+</div>
+
+(admin)

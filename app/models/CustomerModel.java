@@ -2,16 +2,9 @@ package models;
 
 import java.util.Date;
 
-import javax.annotation.Detainted;
-import javax.persistence.Access;
-import javax.persistence.Basic;
-import javax.persistence.Embedded;
+
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.ExcludeDefaultListeners;
-import javax.persistence.ExcludeSuperclassListeners;
 import javax.persistence.Id;
-import javax.validation.Constraint;
 
 /* Pas auto-importe */
 import play.data.format.*;

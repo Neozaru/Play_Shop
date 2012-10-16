@@ -18,3 +18,11 @@ GET		/login						controllers.Application.login_page()
 POST	/login						controllers.Application.login_action()		
 
 POST	/logout						controllers.Application.logout()
+
+
+GET		/admin						controllers.Application.admin_page()
+
+
+
+POST	/add_product				controllers.Application.add_product()
+POST	/delete_product				controllers.Application.delete_product()

@@ -1,4 +1,6 @@
-@(user_login: String = "")
+@(user_login: String = "", products_list: List[models.ProductModel] = null)
+
+@import models.ProductModel
 
 @if(user_login && !user_login.isEmpty()){
 <h1>Welcome @user_login</h1>
@@ -9,4 +11,17 @@ You are not connected <br>
 <a href="register">Register</a>
 }
 
-<div align="center">(Le Shop ici)</div>
+<div align="left">
+@if(products_list != null && !products_list.isEmpty()){
+	<h3> Products </h3>
+	<ul>
+	@for(p : ProductModel <- products_list) {
+		<li>@p.label (x@p.quantity)</li>
+	}
+	</ul>
+} else {
+	(No products)
+}
+</div>
+
+<div><a href="admin">Administration</a></div>

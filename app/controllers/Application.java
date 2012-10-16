@@ -5,6 +5,7 @@ import java.util.List;
 import com.avaje.ebean.Ebean;
 
 import models.CustomerModel;
+import models.ProductModel;
 import play.*;
 import play.data.Form;
 import play.libs.F.Tuple;
@@ -25,9 +26,24 @@ public class Application extends Controller {
   private static CustomerModel connected_customer() {
 	  
 	  //session()
-	  //CustomerModel c = Ebean.find(CustomerModel.class).where().eq("login",customer.login).findUnique();
 	  return new CustomerModel(null, null, null); // Stub
 	  
+	  
+  }
+  
+  public static List<ProductModel> get_products() {
+	  List<ProductModel> products_list = Ebean.find(ProductModel.class).findList();
+	  return products_list;
+  }
+  
+  public static String get_post( String key ) {
+	  
+	  String[] post = request().body().asFormUrlEncoded().get( key );
+	  if ( post != null && post.length > 0 ) {
+		  return post[0];
+	  }
+	  
+	  return null;
 	  
   }
   
@@ -42,11 +58,14 @@ public class Application extends Controller {
   }
   
   public static Result shop() {
-	  //return ok(views.html.shop.render(null));
-	  return ok(views.html.shop.render( connected_customer_login() ));
+
+	  /* Ebean se base sur des modeles pour creer automatiquement des BDD interrogeables facon "Objet" */
+
+	  
+	  return ok(views.html.shop.render( connected_customer_login(), get_products() ) );
 	  
   }
-  
+    
   
   public static Result register_page() {
 	  return ok(views.html.register.render( form(CustomerForm.class), "" ) );
@@ -110,6 +129,67 @@ public class Application extends Controller {
 	 
 	  
   }
+  
+  
+  
+  public static Result delete_product() {
+	  
+	  
+	  String prod_id = get_post("prod_id");
+	  
+	  if ( prod_id != null ) {
+
+		  ProductModel product = Ebean.find(ProductModel.class).where().eq("id",prod_id).findUnique();
+		  
+		  if ( product != null ) {
+			  product.delete();
+		  }
+	  
+	  }
+	  
+	  return redirect("admin");
+  }
+  
+  public static Result add_product(  ) {
+	  
+	  Form<ProductModel> product_form = form(ProductModel.class);
+	  
+	  ProductModel product = null;
+	  if ( product_form != null )  {
+		  
+		  try {
+			  product = product_form.bindFromRequest().get();
+		  }
+		  catch( IllegalStateException e ) {
+			  product = null;
+		  }
+	  }
+	  
+	  if ( product == null || product.label.isEmpty() ) {
+		  return  ok( views.html.admin.render( get_products(), product_form, "Merci de remplir tous les champs") );
+  
+	  }
+	  
+	  /* Ebean se base sur des modeles pour creer automatiquement des BDD interrogeables facon "Objet" */
+	  ProductModel prod_already_reg = Ebean.find(ProductModel.class).where().eq("label",product.label).findUnique();
+
+	  if ( prod_already_reg != null ) {
+		  return ok(views.html.admin.render( get_products(), product_form, "'"+prod_already_reg.label+"' : Product already registered" ) );
+	  }
+  
+	  if (product.quantity <= 0) { product.quantity = 0; }
+	  product.save();
+	  
+	  return redirect("admin");
+
+  }
+  
+  public static Result admin_page() {
+	  
+	  return  ok( views.html.admin.render( get_products(), form(ProductModel.class), "") );
+	  
+  }
+  
  
   
 }
