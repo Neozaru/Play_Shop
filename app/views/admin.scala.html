@@ -6,9 +6,9 @@
 <div style="font-weight:bold;color:red;" id="err_msg">Erreur : @errorMessage</div>
 }
 
-<form action="add_product" method="POST">
+<!-- <form action="add_product" method="POST"> -->
 
-@helper.form(action = routes.Application.add_product()) {
+@helper.form(action = routes.Admin.add_product()) {
     
     @helper.inputText( form_product("label")    )
     @helper.inputText( form_product("category") )
@@ -24,10 +24,10 @@
 	<ul>
 	@for(p : ProductModel <- products_list) {
 		<li>@p.label (x@p.quantity [+] [-]) 
-			<form action="delete_product" method="POST">
+			@helper.form(action = routes.Admin.delete_product()) {
 				<input type="hidden" name="prod_id" value="@p.id">
 				<input type="submit" value="delete">
-			</form> 
+			}
 		</li>
 	}
 	</ul>

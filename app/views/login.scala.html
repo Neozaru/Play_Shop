@@ -3,7 +3,7 @@
 @if( errorMessage && !errorMessage.isEmpty() ) {
 <div style="font-weight:bold;color:red;" id="err_msg">Erreur : @errorMessage</div>
 }
-@helper.form(action = routes.Application.login_action()) {
+@helper.form(action = routes.Accounts.login_action()) {
     
     @helper.inputText(myForm("login"))
     @helper.inputPassword(myForm("password"))

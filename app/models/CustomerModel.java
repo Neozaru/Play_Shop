@@ -1,10 +1,15 @@
 package models;
 
 import java.util.Date;
+import java.util.List;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.EntityResult;
 import javax.persistence.Id;
+import javax.validation.Constraint;
 
 /* Pas auto-importe */
 import play.data.format.*;
@@ -37,7 +42,7 @@ public class CustomerModel extends Model {
 	
 	@Formats.DateTime(pattern="dd/MM/yyyy")
 	public Date dueDate = new Date();
-	
+		
 	/** END STORED **/
 
 	

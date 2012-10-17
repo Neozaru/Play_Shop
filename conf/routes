@@ -10,19 +10,20 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 GET		/shop						controllers.Application.shop()
 
-GET		/register					controllers.Application.register_page()
-POST	/register					controllers.Application.register_action()
+GET		/register					controllers.Accounts.register_page()
+POST	/register					controllers.Accounts.register_action()
 
 
-GET		/login						controllers.Application.login_page()
-POST	/login						controllers.Application.login_action()		
+GET		/login						controllers.Accounts.login_page()
+POST	/login						controllers.Accounts.login_action()		
 
-POST	/logout						controllers.Application.logout()
-
-
-GET		/admin						controllers.Application.admin_page()
+POST	/logout						controllers.Accounts.logout()
 
 
+GET		/admin						controllers.Admin.admin_page()
 
-POST	/add_product				controllers.Application.add_product()
-POST	/delete_product				controllers.Application.delete_product()
+
+POST	/admin/add_product			controllers.Admin.add_product()
+POST	/admin/delete_product		controllers.Admin.delete_product()
+
+GET		/cart						controllers.Application.cart()
