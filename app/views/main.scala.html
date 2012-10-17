@@ -10,6 +10,30 @@
         <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
     </head>
     <body>
-        @content
+    <div id="user_header">
+
+    
+	    <a id="shop_header" href="./shop">SHOP</a>
+	    
+	        @if(session.get("user_login") && !session.get("user_login").isEmpty()){
+	        	<span id="user_welcome">Welcome @session.get("user_login")</span>
+	        	<a id="user_cart" alt="your cart" href="./cart">Cart</a>
+	        	<form method="POST" action="logout" style="display:inline-block;"><input type="submit" value="Logout"  ></form>
+	        	
+	        } else {
+				You are not connected
+				<a href="login">Login</a>
+				<a href="register">Register</a>
+			}
+
+	</div>
+
+	<h1>@title</h1>
+
+    @content
+    
+    <br>
+    <div><a href="admin">Administration</a></div>
+        
     </body>
 </html>

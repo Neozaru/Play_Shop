@@ -1,13 +1,16 @@
 @(myForm: Form[structures.CustomerForm], errorMessage: String = "")
 
-@if( errorMessage && !errorMessage.isEmpty() ) {
-<div style="font-weight:bold;color:red;" id="err_msg">Erreur : @errorMessage</div>
-}
-@helper.form(action = routes.Accounts.login_action()) {
+@main("Login") {
+	@if( errorMessage && !errorMessage.isEmpty() ) {
+		<div style="font-weight:bold;color:red;" id="err_msg">Erreur : @errorMessage</div>
+	}
+	@helper.form(action = routes.Accounts.login_action()) {
+	    
+	    @helper.inputText(myForm("login"))
+	    @helper.inputPassword(myForm("password"))
+	    
+	    <input type="submit" value="Login">
     
-    @helper.inputText(myForm("login"))
-    @helper.inputPassword(myForm("password"))
-    
-    <input type="submit" value="Login">
-    
+	}
+
 }
