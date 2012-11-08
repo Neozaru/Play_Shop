@@ -18,10 +18,10 @@ import views.html.*;
 public class Application extends Controller {
   
 	
-	private CustomerModel _connected_customer;
-	
-  public static Result index() {
-    return ok(index.render("Your new application is ready."));
+    private CustomerModel _connected_customer;
+    
+    public static Result index() {
+    return ok(index.render("Your new application2 is ready."));
   }
   
   private static CustomerModel connected_customer() {
