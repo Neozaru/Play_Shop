@@ -15,6 +15,7 @@ import play.data.validation.*;
 import play.db.ebean.Model;
 import play.db.ebean.Model.Finder;
 
+import models.ProductModel;
 
 @Entity
 public class CartModel extends Model {

@@ -2,15 +2,18 @@
 @import models.CartModel
 @import models.ProductModel
 
-@if( cart != null && !cart.isEmpty() ) {
-	<h3> Cart </h3>
-	<ul>
-	
-	@for(c : CartModel <- cart ) {
-		<li>@c.get_product().label (x@c.quantity)</li>
-	}
+@main("Your Cart") {
+	@if( cart != null && !cart.isEmpty() ) {
+		<h3> Cart </h3>
+		<ul>
 		
-	</ul>
-} else {
-(empty cart)
+		@for(c : CartModel <- cart ) {
+			<li>@c.get_product().label (x@c.quantity)</li>
+		}
+			
+		</ul>
+	} else {
+	(empty cart)
+}
+
 }

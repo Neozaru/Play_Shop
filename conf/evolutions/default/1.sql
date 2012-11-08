@@ -17,6 +17,7 @@ create table customer_model (
   email                     varchar(255),
   password                  varchar(255),
   due_date                  timestamp,
+  ref_cart                  bigint not null,
   constraint pk_customer_model primary key (id))
 ;
 
@@ -34,6 +35,8 @@ create sequence customer_model_seq;
 
 create sequence product_model_seq;
 
+alter table customer_model add constraint fk_customer_model_cart_1 foreign key (ref_cart) references cart_model (id) on delete restrict on update restrict;
+create index ix_customer_model_cart_1 on customer_model (ref_cart);
 
 
 

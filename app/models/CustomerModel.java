@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.EntityResult;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.validation.Constraint;
 
 /* Pas auto-importe */
@@ -42,7 +44,11 @@ public class CustomerModel extends Model {
 	
 	@Formats.DateTime(pattern="dd/MM/yyyy")
 	public Date dueDate = new Date();
-		
+	
+	@JoinColumn(name = "ref_cart", referencedColumnName = "id", insertable = false, updatable = false)
+	@OneToOne(optional = false)
+	public CartModel cart;
+	
 	/** END STORED **/
 
 	
