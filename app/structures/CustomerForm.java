@@ -8,8 +8,12 @@ public class CustomerForm {
 
 	@Required
 	public String login;
+	
 	public String email;
+	
+	@Required
 	public String password; // Temporary (md5 hash or better should be used)
+	
 	public String password_confirmation; // Temporary (md5 hash or better should be used)
 
 	public CustomerForm() {

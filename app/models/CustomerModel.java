@@ -24,6 +24,11 @@ import structures.CustomerForm;
 @Entity 
 public class CustomerModel extends Model {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5524409000435734556L;
+
 	public static int PASSWORD_MIN_VALUE = 4;
 
 	/** STORED **/
@@ -45,7 +50,7 @@ public class CustomerModel extends Model {
 	@Formats.DateTime(pattern="dd/MM/yyyy")
 	public Date dueDate = new Date();
 	
-	@JoinColumn(name = "ref_cart", referencedColumnName = "id", insertable = false, updatable = false)
+	@JoinColumn(name = "ref_cart", referencedColumnName = "id", insertable = true, updatable = false)
 	@OneToOne(optional = false)
 	public CartModel cart;
 	
@@ -60,6 +65,7 @@ public class CustomerModel extends Model {
 		this.login = login;
 		this.email = email;
 		this.password = password;
+		this.cart = new CartModel();
 	}
 
 	public static CustomerModel from_form( CustomerForm form ) {
@@ -75,5 +81,5 @@ public class CustomerModel extends Model {
 	public boolean check_password() {
 		return ( true );
 	}
-	
+
 }

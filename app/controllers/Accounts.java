@@ -1,5 +1,6 @@
 package controllers;
 
+import models.CartModel;
 import models.CustomerModel;
 import play.data.Form;
 import play.mvc.Controller;
@@ -35,6 +36,10 @@ public class Accounts extends Controller {
 	  if ( cf.check_password_confirmation() ) {
 		  
 		  CustomerModel customer = CustomerModel.from_form(cf);
+
+		  customer.cart = new CartModel();
+		  customer.cart.save();
+
 		  customer.save();
 		  
 		  

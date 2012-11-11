@@ -13,11 +13,11 @@
     <div id="user_header">
 
     
-	    <a id="shop_header" href="./shop">SHOP</a>
+	    <a id="shop_header" href="/shop">SHOP</a>
 	    
 	        @if(session.get("user_login") && !session.get("user_login").isEmpty()){
 	        	<span id="user_welcome">Welcome @session.get("user_login")</span>
-	        	<a id="user_cart" alt="your cart" href="./cart">Cart</a>
+	        	<a id="user_cart" alt="your cart" href="/cart">Cart</a>
 	        	<form method="POST" action="logout" style="display:inline-block;"><input type="submit" value="Logout"  ></form>
 	        	
 	        } else {
@@ -33,7 +33,7 @@
     @content
     
     <br>
-    <div><a href="admin">Administration</a></div>
+    <div><a href="/admin">Administration</a></div>
         
     </body>
 </html>

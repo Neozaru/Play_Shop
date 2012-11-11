@@ -6,7 +6,8 @@ import com.avaje.ebean.Ebean;
 
 import models.CartModel;
 import models.CustomerModel;
-import models.ProductModel;
+import models.ProductInfoModel;
+import models.ProductSaleModel;
 import play.*;
 import play.data.Form;
 import play.libs.F.Tuple;
@@ -26,14 +27,34 @@ public class Application extends Controller {
   
   private static CustomerModel connected_customer() {
 	  
-	  //session()
-	  return new CustomerModel(null, null, null); // Stub
+	  if ( session().containsKey("user_id")) {
+		  return Ebean.find(CustomerModel.class).where().eq("id",session().get("user_id")).findUnique();
+	  }
 	  
+	  return null;
 	  
   }
   
-  public static List<ProductModel> get_products() {
-	  List<ProductModel> products_list = Ebean.find(ProductModel.class).findList();
+  public static List<ProductSaleModel> get_product_sales( Long id_product_info ) {
+
+	  List<ProductSaleModel> products_list =Ebean.find(ProductSaleModel.class).where().eq("ref_product_info", id_product_info.toString()).findList();
+	  return products_list;
+  
+  }
+  
+  public static List<ProductSaleModel> get_products_sales() {
+	  List<ProductSaleModel> products_list = Ebean.find(ProductSaleModel.class).findList();
+
+	  return products_list;
+  }
+  
+  public static ProductInfoModel get_product_info( Long id ) {
+	  ProductInfoModel product_info = Ebean.find(ProductInfoModel.class).where().eq("id",id.toString()).findUnique();
+	  return product_info;
+  }
+  
+  public static List<ProductInfoModel> get_products_infos() {
+	  List<ProductInfoModel> products_list = Ebean.find(ProductInfoModel.class).findList();
 	  return products_list;
   }
   
@@ -61,21 +82,23 @@ public class Application extends Controller {
   public static Result shop() {
 
 	  /* Ebean se base sur des modeles pour creer automatiquement des BDD interrogeables facon "Objet" */
-
+	  System.out.println("LOL");
 	  
-	  return ok(views.html.shop.render( connected_customer_login(), get_products() ) );
+	  return ok(views.html.shop.render( connected_customer_login(), get_products_sales() ) );
 	  
   }
 
   
   public static Result cart() {
 	  
-	  List<CartModel> cart_model = null;
+	  CartModel cart_model = null;
 	  
-	  if ( session().containsKey("user_id") ) {
-		  cart_model = CartModel.get_products_of_customer_id( session().get("user_id") );
+	  CustomerModel user_model = connected_customer();
+	  
+	  if ( user_model != null ) {
+		  cart_model = user_model.cart;
 	  }
-	  
+	
 	  return ok( views.html.cart.render( cart_model ) );
 	  
   }

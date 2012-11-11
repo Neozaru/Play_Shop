@@ -1,14 +1,14 @@
-@( cart : List[models.CartModel] = null )
+@( cart : models.CartModel = null )
 @import models.CartModel
-@import models.ProductModel
+@import models.ProductPurchasedModel
 
 @main("Your Cart") {
-	@if( cart != null && !cart.isEmpty() ) {
+	@if( cart != null ) {
 		<h3> Cart </h3>
 		<ul>
 		
-		@for(c : CartModel <- cart ) {
-			<li>@c.get_product().label (x@c.quantity)</li>
+		@for(pp : ProductPurchasedModel <- cart.purchased_products ) {
+			<li>@pp.product_info.label | @pp.price (x@pp.quantity)</li>
 		}
 			
 		</ul>

@@ -22,8 +22,14 @@ POST	/logout						controllers.Accounts.logout()
 
 GET		/admin						controllers.Admin.admin_page()
 
+POST	/admin/add_product_info			controllers.Admin.add_product_info()
+POST	/admin/delete_product_info		controllers.Admin.delete_product_info()
 
-POST	/admin/add_product			controllers.Admin.add_product()
-POST	/admin/delete_product		controllers.Admin.delete_product()
+GET		/admin/product_sales/:product_info_id		controllers.Admin.admin_sales_page(product_info_id: Long)
+
+POST	/admin/add_product_sale/:product_info_id		controllers.Admin.add_product_sale(product_info_id: Long)
+POST	/admin/delete_product_sale/:product_info_id		controllers.Admin.delete_product_sale(product_info_id: Long)		
+	
 
 GET		/cart						controllers.Application.cart()
+

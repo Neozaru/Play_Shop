@@ -1,0 +1,45 @@
+@( product_info : models.ProductInfoModel, form_product : Form[models.ProductSaleModel] = null, errorMessage: String = "" )
+
+@import models.ProductInfoModel
+@import models.ProductSaleModel
+
+@main("Administration") {
+			@if( errorMessage && !errorMessage.isEmpty() ) {
+		<div style="font-weight:bold;color:red;" id="err_msg">Erreur : @errorMessage</div>
+	}
+	
+	<!-- <form action="sale_product" method="POST"> -->
+	
+	@helper.form(action = routes.Admin.add_product_sale(product_info.id)) {
+	    
+	    @helper.inputText( form_product("price")    )	    
+	    @** @helper.inputText( form_product("quantity"), value -> "0") **@
+	    <label for="quantity">Quantity</label>
+	    <input type="text" name="quantity" value="0" size="2"> <br>
+	    
+		<input type="submit" value="Sale Product">
+	}
+	
+	<div align="left">
+	@defining(Application.get_product_sales(product_info.id)) { product_sales_list =>
+			@if(product_sales_list != null && !product_sales_list.isEmpty()){
+			<h3> Products Sales for '@product_info.label'</h3>
+			<ul>
+			@for(ps : ProductSaleModel <- product_sales_list) {
+				<li>@ps.price USD (x@ps.quantity)
+					@helper.form(action = routes.Admin.delete_product_sale(ps.product_info.id)) {
+						<input type="hidden" name="prod_sale_id" value="@ps.id">
+						<input type="submit" value="delete">
+				}
+			</li>
+			}
+			</ul>
+		} else {
+			(No products)
+		}
+	}
+	</div>
+	
+	(admin)
+	
+}

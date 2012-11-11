@@ -1,6 +1,6 @@
-@( products_list: List[models.ProductModel] = null, form_product : Form[models.ProductModel] = null, errorMessage: String = "" )
+@( products_list: List[models.ProductInfoModel] = null, form_product : Form[models.ProductInfoModel] = null, errorMessage: String = "" )
 
-@import models.ProductModel
+@import models.ProductInfoModel
 
 @main("Administration") {
 			@if( errorMessage && !errorMessage.isEmpty() ) {
@@ -9,10 +9,12 @@
 	
 	<!-- <form action="add_product" method="POST"> -->
 	
-	@helper.form(action = routes.Admin.add_product()) {
+	@helper.form(action = routes.Admin.add_product_info()) {
 	    
 	    @helper.inputText( form_product("label")    )
 	    @helper.inputText( form_product("category") )
+	   	@helper.textarea( form_product("description") )
+	    
 	    @** @helper.inputText( form_product("quantity"), value -> "0") **@
 	    <input type="text" name="quantity" value="0" size="2"> <br>
 	    
@@ -21,13 +23,17 @@
 	
 	<div align="left">
 	@if(products_list != null && !products_list.isEmpty()){
-		<h3> Products </h3>
+		<h3> Products Infos </h3>
 		<ul>
-		@for(p : ProductModel <- products_list) {
-			<li>@p.label (x@p.quantity [+] [-]) 
-				@helper.form(action = routes.Admin.delete_product()) {
-					<input type="hidden" name="prod_id" value="@p.id">
+		@for(pi : ProductInfoModel <- products_list) {
+			<li>@pi.label (@pi.description) 
+				@helper.form(action = routes.Admin.delete_product_info()) {
+					<input type="hidden" name="prod_id" value="@pi.id">
 					<input type="submit" value="delete">
+				}
+							@helper.form(action = routes.Admin.admin_sales_page(pi.id)) {
+					<input type="hidden" name="prod_id" value="@pi.id">
+					<input type="submit" value="Sales">
 				}
 			</li>
 		}
