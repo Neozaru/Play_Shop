@@ -33,3 +33,12 @@ POST	/admin/delete_product_sale/:product_info_id		controllers.Admin.delete_produ
 
 GET		/cart						controllers.Application.cart()
 
+
+# REST
+GET		/api/tests/products_info				controllers.rest.ProductsWS.tests()
+
+POST	/api/products_info						controllers.rest.ProductsWS.new_product_info()
+GET		/api/products_info/:product_info_id		controllers.rest.ProductsWS.get_product_info(product_info_id: Long)
+PUT		/api/products_info/:product_info_id		controllers.rest.ProductsWS.update_product_info(product_info_id: Long)
+DELETE	/api/products_info/:product_info_id		controllers.rest.ProductsWS.delete_product_info(product_info_id: Long)
+

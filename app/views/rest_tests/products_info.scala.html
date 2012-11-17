@@ -1,0 +1,92 @@
+@main("Tests") {
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+    $("form .send").live("click", function(){
+    
+       	var response_area = $(this).siblings("textarea.result");
+    
+    
+    	var url = $(this).parent().attr('action');
+    	var id = $(this).siblings("input.id").val();
+    	if ( typeof(id) !== 'undefined' ) {
+    		url += '/'+id;
+    	}
+    	
+    	
+    	var data = '';
+    	$.each($(this).siblings("input"),function(i,field){
+    		if ( field.className != 'id' && field.value != '' ) {
+    			data += '&'+field.className+'='+field.value;
+    		}
+    	})    	
+    	
+		$.ajax({
+		    url: url,
+		    type: $(this).parent().attr('method'),
+		    data: data,
+		    dataType: 'text',
+		    success: function(result) {
+       			response_area.val('URL : '+url+' | '+data+'\n\n'+result);
+    		},
+    		error: function(response) {
+    			response_area.val('URL : '+url+' | '+data+'Bad response status  : ' + response.status);
+    		}
+
+		})
+
+    	return false;
+    });
+</script>
+
+<h3>get_product</h3>
+<form id="get_product" method="GET" action="/api/products_info">
+	<label for="id">ID : </label><input class="id" type="text" >
+	<input class="send" type="button" value="Ok">
+	<br>
+	<!-- <label for="request_url">Request URL : </label><input class="request_url" size="24"> -->
+	<br>
+	<textarea class="result" rows="7" cols="75"></textarea>
+</form>
+----------------------
+<h3>new_product</h3>
+<form id="new_product" method="POST" action="/api/products_info">
+	<label for="label">Label : </label><input class="label" type="text" >
+	<br>
+	<label for="description">Description : </label><input class="description" type="text" >
+	
+	<input class="send" type="button" value="Ok">
+	<br>
+	<!-- <label for="request_url">Request URL : </label><input class="request_url" size="24"> -->
+	<br>
+	<textarea class="result" rows="7" cols="75"></textarea>
+</form>
+----------------------
+<h3>delete_product</h3>
+<form id="delete_product" method="DELETE" action="/api/products_info">
+	<label for="id">ID : </label><input class="id" type="text" >
+
+	<input class="send" type="button" value="Ok">
+	<br>
+	<!-- <label for="request_url">Request URL : </label><input class="request_url" size="24"> -->
+	<br>
+	<textarea class="result" rows="7" cols="75"></textarea>
+</form>
+----------------------
+<h3>update_product</h3>
+<form id="update_product" method="PUT" action="/api/products_info">
+	<label for="id">ID : </label><input class="id" type="text" >
+	<br>
+	<label for="label">Label : </label><input class="label" type="text" >
+	<br>
+	<label for="description">Description : </label><input class="description" type="text" >
+	
+	<input class="send" type="button" value="Ok">
+	<br>
+	<!-- <label for="request_url">Request URL : </label><input class="request_url" size="24"> -->
+	<br>
+	<textarea class="result" rows="7" cols="75"></textarea>
+</form>
+
+}
