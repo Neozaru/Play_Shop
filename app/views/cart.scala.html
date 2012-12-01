@@ -1,16 +1,17 @@
-@( cart : models.CartModel = null )
-@import models.CartModel
-@import models.ProductPurchasedModel
+@( cart : models.Cart = null )
+@import models.Cart
+@import models.ProductPurchased
 
 @main("Your Cart") {
 	@if( cart != null ) {
 		<h3> Cart </h3>
 		<ul>
 		
-		@for(pp : ProductPurchasedModel <- cart.purchased_products ) {
-			<li>@pp.product_info.label | @pp.price (x@pp.quantity)</li>
+		@if( cart.purchased_products != null ) {
+			@for(pp : ProductPurchased <- cart.purchased_products ) {
+				<li>@pp.product_info.label | @pp.price (x@pp.quantity)</li>
+			}
 		}
-			
 		</ul>
 	} else {
 	(empty cart)

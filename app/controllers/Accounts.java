@@ -1,7 +1,7 @@
 package controllers;
 
-import models.CartModel;
-import models.CustomerModel;
+import models.Cart;
+import models.Customer;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -27,7 +27,7 @@ public class Accounts extends Controller {
 	  CustomerForm cf = customerForm.bindFromRequest().get();
 
 	  /* Ebean se base sur des modeles pour creer automatiquement des BDD interrogeables facon "Objet" */
-	  CustomerModel cm_already_reg = Ebean.find(CustomerModel.class).where().eq("login",cf.login).findUnique();
+	  Customer cm_already_reg = Ebean.find(Customer.class).where().eq("login",cf.login).findUnique();
 
 	  if ( cm_already_reg != null ) {
 		  return ok(views.html.register.render( customerForm, "'"+cm_already_reg.login+"' : Username already registered" ) );
@@ -35,9 +35,9 @@ public class Accounts extends Controller {
 	  
 	  if ( cf.check_password_confirmation() ) {
 		  
-		  CustomerModel customer = CustomerModel.from_form(cf);
+		  Customer customer = Customer.from_form(cf);
 
-		  customer.cart = new CartModel();
+		  customer.cart = new Cart();
 		  customer.cart.save();
 
 		  customer.save();
@@ -60,7 +60,7 @@ public class Accounts extends Controller {
 	  CustomerForm cf = customerForm.bindFromRequest().get();
 	  
 	  /* Ebean se base sur des modeles pour creer automatiquement des BDD interrogeables facon "Objet" */
-	  CustomerModel customer = Ebean.find(CustomerModel.class).where().eq("login",cf.login).eq("password", cf.password).findUnique();
+	  Customer customer = Ebean.find(Customer.class).where().eq("login",cf.login).eq("password", cf.password).findUnique();
 	  
 	  if ( customer == null ) {
 		  return ok(views.html.login.render( customerForm, "Incorrect user login or/and password" ) ); 

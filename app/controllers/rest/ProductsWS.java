@@ -3,7 +3,7 @@ package controllers.rest;
 
 import java.util.Map;
 
-import models.ProductInfoModel;
+import models.ProductInfo;
 
 import org.codehaus.jackson.node.ObjectNode;
 
@@ -25,12 +25,12 @@ public class ProductsWS extends Controller {
 		}
 		else {
 			
-			ObjectNode result = Json.newObject();
 			Map<String,String[]> parameters = request().body().asFormUrlEncoded();
 
-			ProductInfoModel product_info = new ProductInfoModel( parameters.get("label")[0],"");
+			ProductInfo product_info = new ProductInfo( parameters.get("label")[0],"");
 			product_info.save();
 
+			ObjectNode result = Json.newObject();
 			result.put("product_info", Json.toJson(product_info));
 
 			return WSUtils.ok_request_json( result );		
@@ -44,7 +44,7 @@ public class ProductsWS extends Controller {
 	public static Result get_product_info( Long product_info_id ) {
 		
 
-		ProductInfoModel product_info = ProductInfoModel.find.byId(product_info_id);
+		ProductInfo product_info = ProductInfo.find.byId(product_info_id);
 
 		if ( product_info == null ) {
 			return WSUtils.bad_request_json("Not found");
@@ -63,7 +63,7 @@ public class ProductsWS extends Controller {
 	
 	public static Result delete_product_info( Long product_info_id ) {
 		
-		ProductInfoModel product_info = ProductInfoModel.find.byId(product_info_id);
+		ProductInfo product_info = ProductInfo.find.byId(product_info_id);
 
 		if ( product_info == null ) {
 			return WSUtils.bad_request_json("Not found");
@@ -72,7 +72,6 @@ public class ProductsWS extends Controller {
 		else {
 
 			ObjectNode result = Json.newObject();
-
 			result.put("product_info", Json.toJson(product_info));
 			product_info.delete();
 			return WSUtils.ok_request_json( result );
@@ -84,7 +83,7 @@ public class ProductsWS extends Controller {
 	
 	public static Result update_product_info( Long product_info_id ) {
 		
-		ProductInfoModel product_info = ProductInfoModel.find.byId(product_info_id);
+		ProductInfo product_info = ProductInfo.find.byId(product_info_id);
 
 		if ( product_info == null ) {
 			return WSUtils.bad_request_json("Not found");

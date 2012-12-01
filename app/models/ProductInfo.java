@@ -7,7 +7,7 @@ import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 @Entity 
-public class ProductInfoModel extends Model {
+public class ProductInfo extends Model {
 
 	/**
 	 * 
@@ -25,14 +25,14 @@ public class ProductInfoModel extends Model {
 	
 	public String category;
 	
-	public ProductInfoModel( String label, String category ) {
+	public ProductInfo( String label, String category ) {
 		this.label = label;
 		this.category = category;
 	}
 
 	
-	public static Finder<Long,ProductInfoModel> find = new Finder<Long,ProductInfoModel>(
-		    Long.class, ProductInfoModel.class
+	public static Finder<Long,ProductInfo> find = new Finder<Long,ProductInfo>(
+		    Long.class, ProductInfo.class
 	);
 	
 	

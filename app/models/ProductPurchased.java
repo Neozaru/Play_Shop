@@ -10,7 +10,7 @@ import play.db.ebean.Model;
 import play.db.ebean.Model.Finder;
 
 @Entity 
-public class ProductPurchasedModel extends Model {
+public class ProductPurchased extends Model {
 
 	/**
 	 * 
@@ -23,21 +23,21 @@ public class ProductPurchasedModel extends Model {
 	
 	@JoinColumn(name = "ref_product_info", referencedColumnName = "id", insertable = false, updatable = false)
 	@OneToOne(optional = false)
-	public ProductInfoModel product_info;
+	public ProductInfo product_info;
 	
 	
 	public float price;
 	
 	public int quantity;
 	
-	public ProductPurchasedModel( ProductInfoModel product_info, float price, int quantity ) {
+	public ProductPurchased( ProductInfo product_info, float price, int quantity ) {
 		this.product_info = product_info;
 		this.price = price;
 		this.quantity = quantity;
 	}
 
-	public static Finder<Long,ProductPurchasedModel> find = new Finder<Long,ProductPurchasedModel>(
-		    Long.class, ProductPurchasedModel.class
+	public static Finder<Long,ProductPurchased> find = new Finder<Long,ProductPurchased>(
+		    Long.class, ProductPurchased.class
 	);
 	
 }

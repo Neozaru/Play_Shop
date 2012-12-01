@@ -2,8 +2,8 @@ package controllers;
 
 import java.util.List;
 
-import models.ProductInfoModel;
-import models.ProductSaleModel;
+import models.ProductInfo;
+import models.ProductSale;
 
 import com.avaje.ebean.Ebean;
 
@@ -17,7 +17,7 @@ public class Admin extends Controller {
 
 	  public static Result admin_page() {
 		  
-		  return  ok( views.html.admin_product_infos.render( Application.get_products_infos(), form(ProductInfoModel.class), "") );
+		  return  ok( views.html.admin_product_infos.render( Application.get_products_infos(), form(ProductInfo.class), "") );
 		  
 	  }
 
@@ -25,9 +25,9 @@ public class Admin extends Controller {
 	  
 	  public static Result add_product_info() {
 		  
-		  Form<ProductInfoModel> product_info_form = form(ProductInfoModel.class);
+		  Form<ProductInfo> product_info_form = form(ProductInfo.class);
 		  
-		  ProductInfoModel product = null;
+		  ProductInfo product = null;
 		  if ( product_info_form != null )  {
 			  
 			  try {
@@ -46,7 +46,7 @@ public class Admin extends Controller {
 		  
 		  /* Ebean se base sur des modeles pour creer automatiquement des BDD interrogeables facon "Objet" */
 		  
-		  ProductInfoModel prod_already_reg = Ebean.find(ProductInfoModel.class).where().eq("label",product.label).findUnique();
+		  ProductInfo prod_already_reg = Ebean.find(ProductInfo.class).where().eq("label",product.label).findUnique();
 
 		  if ( prod_already_reg != null ) {
 			  return ok(views.html.admin_product_infos.render( Application.get_products_infos(), product_info_form, "'"+prod_already_reg.label+"' : Product already registered" ) );
@@ -66,7 +66,7 @@ public class Admin extends Controller {
 		  
 		  if ( prod_id != null ) {
 
-			  ProductInfoModel product = Ebean.find(ProductInfoModel.class).where().eq("id",prod_id).findUnique();
+			  ProductInfo product = Ebean.find(ProductInfo.class).where().eq("id",prod_id).findUnique();
 			  
 			  if ( product != null ) {
 				  product.delete();
@@ -84,21 +84,21 @@ public class Admin extends Controller {
 	  public static Result admin_sales_page( Long product_info_id ) {
 		  	
 		  System.out.println("--- Id : "+product_info_id);
-		  List<ProductSaleModel> product_sales = Application.get_product_sales(product_info_id);
+		  List<ProductSale> product_sales = Application.get_product_sales(product_info_id);
 		  
 		  
 		  
-		  return ok( views.html.admin_product_sales.render( Application.get_product_info(product_info_id), form(ProductSaleModel.class), "" ));
+		  return ok( views.html.admin_product_sales.render( Application.get_product_info(product_info_id), form(ProductSale.class), "" ));
 		  
 	  }
 	  
 	  public static Result add_product_sale( Long product_info_id ) {
 		  
-		  ProductInfoModel product_info = Application.get_product_info(product_info_id);
+		  ProductInfo product_info = Application.get_product_info(product_info_id);
 		  
-		  Form<ProductSaleModel> product_sale_form = form(ProductSaleModel.class);
+		  Form<ProductSale> product_sale_form = form(ProductSale.class);
 		  
-		  ProductSaleModel product_sale = null;
+		  ProductSale product_sale = null;
 		  if ( product_sale_form != null )  {
 			  
 			  try {
@@ -130,7 +130,7 @@ public class Admin extends Controller {
 		  
 		  if ( prod_id != null ) {
 
-			  ProductSaleModel product = Ebean.find(ProductSaleModel.class).where().eq("id",prod_id).findUnique();
+			  ProductSale product = Ebean.find(ProductSale.class).where().eq("id",prod_id).findUnique();
 			  
 			  if ( product != null ) {
 				  product.delete();

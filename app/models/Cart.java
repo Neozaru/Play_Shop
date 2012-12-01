@@ -18,10 +18,10 @@ import play.data.validation.*;
 import play.db.ebean.Model;
 import play.db.ebean.Model.Finder;
 
-import models.ProductInfoModel;
+import models.ProductInfo;
 
 @Entity
-public class CartModel extends Model {
+public class Cart extends Model {
 
 	/**
 	 * 
@@ -34,28 +34,28 @@ public class CartModel extends Model {
 	
 	@JoinColumn(name = "ref_product_info", referencedColumnName = "id", insertable = false, updatable = false)
 	@ManyToOne(optional = false)
-	public List<ProductPurchasedModel> purchased_products;
+	public List<ProductPurchased> purchased_products;
 
 
-	public CartModel() {
+	public Cart() {
 	}
 	
-	public static Finder<Long,CartModel> find = new Finder<Long,CartModel>(
-		    Long.class, CartModel.class
+	public static Finder<Long,Cart> find = new Finder<Long,Cart>(
+		    Long.class, Cart.class
 	);
 	
-	public static Finder<Long,ProductPurchasedModel> find_purchased_products = new Finder<Long,ProductPurchasedModel>(
-		    Long.class, ProductPurchasedModel.class
+	public static Finder<Long,ProductPurchased> find_purchased_products = new Finder<Long,ProductPurchased>(
+		    Long.class, ProductPurchased.class
 	);
 	
 	/*
-	public CartModel( CustomerModel customer, ProductModel product ) {
+	public Cart( Customer customer, ProductModel product ) {
 		
 		this( customer, product, 1 );
 		
 	}
 	
-	public CartModel( Long customer_id, Long product_id, int quantity ) {
+	public Cart( Long customer_id, Long product_id, int quantity ) {
 		
 		this.customer_id = customer_id;
 		this.product_id = product_id;
@@ -63,7 +63,7 @@ public class CartModel extends Model {
 		
 	}
 	
-	public CartModel( Long customer_id, Long product_id ) {
+	public Cart( Long customer_id, Long product_id ) {
 		
 		this( customer_id, product_id, 1 );
 		
@@ -71,7 +71,7 @@ public class CartModel extends Model {
 	*/
 	
 	/*
-	public void add_to_cart( CustomerModel customer, ProductModel product, int quantity ) {
+	public void add_to_cart( Customer customer, ProductModel product, int quantity ) {
 		
 		customer_id = customer.id;
 		product_id = product.id;
@@ -79,19 +79,19 @@ public class CartModel extends Model {
 		
 	}
 	
-	public void add_to_cart( CustomerModel customer, ProductModel product ) {
+	public void add_to_cart( Customer customer, ProductModel product ) {
 		
 		this.add_to_cart( customer, product, 1 );
 		
 	}
 
 	
-	public List<CartModel> get_products() {
+	public List<Cart> get_products() {
 		return get_products_of_customer_id( this.customer_id.toString() );
 	}
 	
-	public static List<CartModel> get_products_of_customer_id( String customer_id ) {
-		return Ebean.find(CartModel.class).where().eq("customer_id", customer_id).findList();
+	public static List<Cart> get_products_of_customer_id( String customer_id ) {
+		return Ebean.find(Cart.class).where().eq("customer_id", customer_id).findList();
 
 	}
 	

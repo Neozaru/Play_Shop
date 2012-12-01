@@ -22,7 +22,7 @@ import play.db.ebean.*;
 import structures.CustomerForm;
 
 @Entity 
-public class CustomerModel extends Model {
+public class Customer extends Model {
 
 	/**
 	 * 
@@ -52,25 +52,25 @@ public class CustomerModel extends Model {
 	
 	@JoinColumn(name = "ref_cart", referencedColumnName = "id", insertable = true, updatable = false)
 	@OneToOne(optional = false)
-	public CartModel cart;
+	public Cart cart;
 	
 	/** END STORED **/
 
 	
-	public static Finder<Long,CustomerModel> find = new Finder<Long,CustomerModel>(
-		    Long.class, CustomerModel.class
+	public static Finder<Long,Customer> find = new Finder<Long,Customer>(
+		    Long.class, Customer.class
 	);
 	
-	public CustomerModel(String login, String email, String password) {
+	public Customer(String login, String email, String password) {
 		this.login = login;
 		this.email = email;
 		this.password = password;
-		this.cart = new CartModel();
+		this.cart = new Cart();
 	}
 
-	public static CustomerModel from_form( CustomerForm form ) {
+	public static Customer from_form( CustomerForm form ) {
 		
-		return new CustomerModel( form.login, form.email, form.password );
+		return new Customer( form.login, form.email, form.password );
 		
 	}
 

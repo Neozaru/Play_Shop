@@ -15,7 +15,7 @@ import play.data.validation.*;
 /************************/
 
 @Entity
-public class ProductSaleModel extends Model {
+public class ProductSale extends Model {
 
 	/**
 	 * 
@@ -28,13 +28,13 @@ public class ProductSaleModel extends Model {
 		
 	@JoinColumn(name = "ref_product_info", referencedColumnName = "id", insertable = true, updatable = false)
 	@OneToOne(optional = false)
-	public ProductInfoModel product_info;
+	public ProductInfo product_info;
 	
 	public int quantity;
 
 	public float price;
 	
-	public ProductSaleModel( ProductInfoModel product_info, float price, int quantity ) {
+	public ProductSale( ProductInfo product_info, float price, int quantity ) {
 		this.product_info = product_info;
 		this.price = price;
 		this.quantity = quantity;
@@ -42,8 +42,8 @@ public class ProductSaleModel extends Model {
 	}
 	
 	
-	public static Finder<Long,ProductSaleModel> find = new Finder<Long,ProductSaleModel>(
-		    Long.class, ProductSaleModel.class
+	public static Finder<Long,ProductSale> find = new Finder<Long,ProductSale>(
+		    Long.class, ProductSale.class
 	);
 	
 

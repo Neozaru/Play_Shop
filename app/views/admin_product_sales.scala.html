@@ -1,7 +1,7 @@
-@( product_info : models.ProductInfoModel, form_product : Form[models.ProductSaleModel] = null, errorMessage: String = "" )
+@( product_info : models.ProductInfo, form_product : Form[models.ProductSale] = null, errorMessage: String = "" )
 
-@import models.ProductInfoModel
-@import models.ProductSaleModel
+@import models.ProductInfo
+@import models.ProductSale
 
 @main("Administration") {
 			@if( errorMessage && !errorMessage.isEmpty() ) {
@@ -25,7 +25,7 @@
 			@if(product_sales_list != null && !product_sales_list.isEmpty()){
 			<h3> Products Sales for '@product_info.label'</h3>
 			<ul>
-			@for(ps : ProductSaleModel <- product_sales_list) {
+			@for(ps : ProductSale <- product_sales_list) {
 				<li>@ps.price USD (x@ps.quantity)
 					@helper.form(action = routes.Admin.delete_product_sale(ps.product_info.id)) {
 						<input type="hidden" name="prod_sale_id" value="@ps.id">

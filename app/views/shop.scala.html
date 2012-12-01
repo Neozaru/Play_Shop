@@ -1,6 +1,6 @@
-@(user_login: String = "", products_list: List[models.ProductSaleModel] = null)
+@(user_login: String = "", products_list: List[models.ProductSale] = null)
 
-@import models.ProductSaleModel
+@import models.ProductSale
 
 @main("Shop") {
 
@@ -8,7 +8,7 @@
 @if(products_list != null && !products_list.isEmpty()){
 	<h3> Products </h3>
 	<ul>
-	@for(p : ProductSaleModel <- products_list) {
+	@for(p : ProductSale <- products_list) {
 		<li>@p.product_info.label | @p.price (x@p.quantity)</li>
 	}
 	</ul>
