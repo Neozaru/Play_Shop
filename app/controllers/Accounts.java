@@ -5,6 +5,7 @@ import models.Customer;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import services.Services;
 import structures.CustomerForm;
 
 import com.avaje.ebean.Ebean;
@@ -35,13 +36,18 @@ public class Accounts extends Controller {
 	  
 	  if ( cf.check_password_confirmation() ) {
 		  
-		  Customer customer = Customer.from_form(cf);
+		  Customer customer = null;
+		  
+		  if ( Services.getUserAuthentificationsService().register_user(cf.login, cf.email, cf.password, "", "") ) {
+			  customer = Services.getUserAuthentificationsService().login_user(cf.login, cf.password);
+		  }
 
+		  /*
 		  customer.cart = new Cart();
 		  customer.cart.save();
 
 		  customer.save();
-		  
+		  */
 		  
 		  return ok(views.html.register_ok.render( customer ) );
 	  }

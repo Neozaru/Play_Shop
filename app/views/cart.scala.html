@@ -7,8 +7,8 @@
 		<h3> Cart </h3>
 		<ul>
 		
-		@if( cart.purchased_products != null ) {
-			@for(pp : ProductPurchased <- cart.purchased_products ) {
+		@if( cart.products != null ) {
+			@for(pp : ProductPurchased <- cart.products ) {
 				<li>@pp.product_info.label | @pp.price (x@pp.quantity)</li>
 			}
 		}

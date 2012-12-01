@@ -1,7 +1,10 @@
 @(customer: models.Customer)
 
-Registration successful, <b>@customer.login</b>. Check your mail box (<i>@customer.email</i>) to confirm registration
-(nan mais en fait y a pas de mail hein)
+@if(customer != null) {
+Registration successful, <b>@customer.login</b>. Check your mail box (<i>@customer.email</i>) to confirm registration.
+}else {
+failed 
+}
 
 <br>
 <a href="login">Login page</a>

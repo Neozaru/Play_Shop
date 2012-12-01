@@ -1,0 +1,106 @@
+
+<html>
+<head>
+<!-- <script src="@routes.Assets.at("public","javascripts/utils.js")" type="text/javascript"></script> -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+    $("form .send").live("click", function(){
+    
+       	var response_area = $(this).siblings("textarea.result");
+    
+    
+    	var url = $(this).parent().attr('action');
+    	var id = $(this).siblings("input.id").val();
+    	if ( typeof(id) !== 'undefined' ) {
+    		url += '/'+id;
+    	}
+    	
+    	
+    	var data = '';
+    	$.each($(this).siblings("input"),function(i,field){
+    		if ( field.className != 'id' && field.value != '' ) {
+    			data += '&'+field.className+'='+field.value;
+    		}
+    	})    	
+    	
+		$.ajax({
+		    url: url,
+		    type: $(this).parent().attr('method'),
+		    data: data,
+		    dataType: 'text',
+		    success: function(result) {
+       			response_area.val('URL : '+url+' | '+data+'\n\n'+result);
+    		},
+    		error: function(response) {
+    			response_area.val('URL : '+url+' | '+data+'Bad response status  : ' + response.status);
+    		}
+
+		})
+
+    	return false;
+    });
+</script>du 
+</head>
+
+<body>
+<!-- Operation new_product_info -->
+
+<h3>new_product_info</h3>
+<form id="new_product_info" method="POST" action="/api/productinfo">	
+	<label for="label">Label (Required) : </label><input class="label" type="text" >
+	<br>
+	<label for="description">Description (Required) : </label><input class="description" type="text" >
+	<br>
+	<label for="category">Category (Required) : </label><input class="category" type="text" >
+	<br>
+	
+	
+
+	<input class="send" type="button" value="Ok">
+	<br>
+	<textarea class="result" rows="7" cols="75"></textarea>
+	
+	</form>
+
+
+<!-- Operation edit_product_info -->
+
+<h3>edit_product_info</h3>
+<form id="edit_product_info" method="PUT" action="/api/productinfo">	
+	<label for="id">ID (Required) : </label><input class="id" type="text" >
+	<br>
+	<label for="label">Label  : </label><input class="label" type="text" >
+	<br>
+	<label for="description">Description  : </label><input class="description" type="text" >
+	<br>
+	<label for="category">Category  : </label><input class="category" type="text" >
+	<br>
+	
+
+	<input class="send" type="button" value="Ok">
+	<br>
+	<textarea class="result" rows="7" cols="75"></textarea>
+	
+	</form>
+
+
+<!-- Operation delete_product_info -->
+
+<h3>delete_product_info</h3>
+<form id="delete_product_info" method="DELETE" action="/api/productinfo">	
+	<label for="id">ID (Required) : </label><input class="id" type="text" >
+	<br>
+	
+
+	<input class="send" type="button" value="Ok">
+	<br>
+	<textarea class="result" rows="7" cols="75"></textarea>
+	
+	</form>
+
+
+
+</body>
+</html>

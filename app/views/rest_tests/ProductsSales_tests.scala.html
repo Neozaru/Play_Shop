@@ -1,0 +1,104 @@
+
+<html>
+<head>
+<!-- <script src="@routes.Assets.at("public","javascripts/utils.js")" type="text/javascript"></script> -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+    $("form .send").live("click", function(){
+    
+       	var response_area = $(this).siblings("textarea.result");
+    
+    
+    	var url = $(this).parent().attr('action');
+    	var id = $(this).siblings("input.id").val();
+    	if ( typeof(id) !== 'undefined' ) {
+    		url += '/'+id;
+    	}
+    	
+    	
+    	var data = '';
+    	$.each($(this).siblings("input"),function(i,field){
+    		if ( field.className != 'id' && field.value != '' ) {
+    			data += '&'+field.className+'='+field.value;
+    		}
+    	})    	
+    	
+		$.ajax({
+		    url: url,
+		    type: $(this).parent().attr('method'),
+		    data: data,
+		    dataType: 'text',
+		    success: function(result) {
+       			response_area.val('URL : '+url+' | '+data+'\n\n'+result);
+    		},
+    		error: function(response) {
+    			response_area.val('URL : '+url+' | '+data+'Bad response status  : ' + response.status);
+    		}
+
+		})
+
+    	return false;
+    });
+</script>du 
+</head>
+
+<body>
+<!-- Operation add_product_to_shop -->
+
+<h3>add_product_to_shop</h3>
+<form id="add_product_to_shop" method="POST" action="/api/productsale">	
+	<label for="product_info">Product_info (Required) : </label><input class="product_info" type="text" >
+	<br>
+	<label for="price">Price (Required) : </label><input class="price" type="text" >
+	<br>
+	<label for="stock">Stock (Required) : </label><input class="stock" type="text" >
+	<br>
+	
+	
+
+	<input class="send" type="button" value="Ok">
+	<br>
+	<textarea class="result" rows="7" cols="75"></textarea>
+	
+	</form>
+
+
+<!-- Operation remove_product_from_shop -->
+
+<h3>remove_product_from_shop</h3>
+<form id="remove_product_from_shop" method="DELETE" action="/api/productsale">	
+	<label for="id">ID (Required) : </label><input class="id" type="text" >
+	<br>
+	
+
+	<input class="send" type="button" value="Ok">
+	<br>
+	<textarea class="result" rows="7" cols="75"></textarea>
+	
+	</form>
+
+
+<!-- Operation edit_product_stock -->
+
+<h3>edit_product_stock</h3>
+<form id="edit_product_stock" method="PUT" action="/api/productsale">	
+	<label for="id">ID (Required) : </label><input class="id" type="text" >
+	<br>
+	<label for="price">Price  : </label><input class="price" type="text" >
+	<br>
+	<label for="stock">Stock  : </label><input class="stock" type="text" >
+	<br>
+	
+
+	<input class="send" type="button" value="Ok">
+	<br>
+	<textarea class="result" rows="7" cols="75"></textarea>
+	
+	</form>
+
+
+
+</body>
+</html>

@@ -26,7 +26,7 @@
 			<h3> Products Sales for '@product_info.label'</h3>
 			<ul>
 			@for(ps : ProductSale <- product_sales_list) {
-				<li>@ps.price USD (x@ps.quantity)
+				<li>@ps.price USD (x@ps.stock)
 					@helper.form(action = routes.Admin.delete_product_sale(ps.product_info.id)) {
 						<input type="hidden" name="prod_sale_id" value="@ps.id">
 						<input type="submit" value="delete">

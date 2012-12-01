@@ -38,11 +38,34 @@ POST	/admin/delete_product_sale/:product_info_id		controllers.Admin.delete_produ
 GET		/cart						controllers.Application.cart()
 
 
-# REST
-GET		/api/tests/products_info				controllers.rest.ProductsWS.tests()
+## REST
 
-POST	/api/products_info						controllers.rest.ProductsWS.new_product_info()
-GET		/api/products_info/:product_info_id		controllers.rest.ProductsWS.get_product_info(product_info_id: Long)
-PUT		/api/products_info/:product_info_id		controllers.rest.ProductsWS.update_product_info(product_info_id: Long)
-DELETE	/api/products_info/:product_info_id		controllers.rest.ProductsWS.delete_product_info(product_info_id: Long)
+
+# For interface ProductsSales
+POST /api/productsale	controllers.rest.ProductsSalesWS.add_product_to_shop()
+
+DELETE /api/productsale/:productsale_id	controllers.rest.ProductsSalesWS.remove_product_from_shop(productsale_id : Long)
+
+PUT /api/productsale/:productsale_id	controllers.rest.ProductsSalesWS.edit_product_stock(productsale_id : Long)
+
+
+
+
+# For tests
+GET	/api/tests/productsale	controllers.rest.ProductsSalesWS.tests()
+
+
+# For interface ProductsInfos
+POST /api/productinfo	controllers.rest.ProductsInfosWS.new_product_info()
+
+PUT /api/productinfo/:productinfo_id	controllers.rest.ProductsInfosWS.edit_product_info(productinfo_id : Long)
+
+DELETE /api/productinfo/:productinfo_id	controllers.rest.ProductsInfosWS.delete_product_info(productinfo_id : Long)
+
+
+
+
+# For tests
+GET	/api/tests/productinfo	controllers.rest.ProductsInfosWS.tests()
+
 

@@ -1,85 +1,62 @@
 package models;
 
-import java.util.Date;
-import java.util.List;
 
 
-import javax.persistence.Column;
+// Imports
+import java.util.*;
+
+import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.EntityResult;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
 import javax.validation.Constraint;
 
-/* Pas auto-importe */
+import com.avaje.ebean.Ebean;
+
 import play.data.format.*;
 import play.data.validation.*;
 /************************/
 
-import play.db.ebean.*;
-import structures.CustomerForm;
+import play.db.ebean.Model;
+import play.db.ebean.Model.Finder;
 
-@Entity 
+import models.Cart;
+
+
+
+@Entity
 public class Customer extends Model {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5524409000435734556L;
+@Id
+@Constraints.Min(10)
+public Long id;
 
-	public static int PASSWORD_MIN_VALUE = 4;
-
-	/** STORED **/
-	
-	@Id
-	@Constraints.Min(10)
-	public Long id;
-	
 	@Constraints.Required
 	public String login;
-	
 	@Constraints.Email
 	@Constraints.Required
 	public String email;
-	
 	@Constraints.Required
-	public String password; /* Bad example */
+	public String password;
+	public Date registration_date;
+	public String first_name;
+	public String last_name;
+
 	
-	@Formats.DateTime(pattern="dd/MM/yyyy")
-	public Date dueDate = new Date();
+	@JoinColumn(name = "cart", referencedColumnName = "id", insertable = true, updatable = false)
 	
-	@JoinColumn(name = "ref_cart", referencedColumnName = "id", insertable = true, updatable = false)
-	@OneToOne(optional = false)
 	public Cart cart;
 	
-	/** END STORED **/
 
-	
-	public static Finder<Long,Customer> find = new Finder<Long,Customer>(
-		    Long.class, Customer.class
-	);
-	
-	public Customer(String login, String email, String password) {
-		this.login = login;
-		this.email = email;
-		this.password = password;
-		this.cart = new Cart();
-	}
+// Default ctor
+public Customer() {}
 
-	public static Customer from_form( CustomerForm form ) {
-		
-		return new Customer( form.login, form.email, form.password );
-		
-	}
-
-	/**
-	 * Used during login. Checks in password is correct
-	 * @return
-	 */
-	public boolean check_password() {
-		return ( true );
-	}
+// Default finder
+public static Finder<Long,Customer> find = new Finder<Long,Customer>(
+	    Long.class, Customer.class
+);
 
 }

@@ -1,43 +1,54 @@
 package models;
 
+
+
+// Imports
+import java.util.*;
+
+import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import play.data.validation.Constraints;
+import javax.validation.Constraint;
+
+import com.avaje.ebean.Ebean;
+
+import play.data.format.*;
+import play.data.validation.*;
+/************************/
+
 import play.db.ebean.Model;
 import play.db.ebean.Model.Finder;
 
-@Entity 
+import models.ProductInfo;
+
+
+
+@Entity
 public class ProductPurchased extends Model {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2090263540544346139L;
+@Id
+@Constraints.Min(10)
+public Long id;
 
-	@Id
-	@Constraints.Min(10)
-	public Long id;
+	public Float price;
+	public Integer quantity;
+
 	
-	@JoinColumn(name = "ref_product_info", referencedColumnName = "id", insertable = false, updatable = false)
-	@OneToOne(optional = false)
+	@JoinColumn(name = "productinfo", referencedColumnName = "id", insertable = true, updatable = false)
+	
 	public ProductInfo product_info;
 	
-	
-	public float price;
-	
-	public int quantity;
-	
-	public ProductPurchased( ProductInfo product_info, float price, int quantity ) {
-		this.product_info = product_info;
-		this.price = price;
-		this.quantity = quantity;
-	}
 
-	public static Finder<Long,ProductPurchased> find = new Finder<Long,ProductPurchased>(
-		    Long.class, ProductPurchased.class
-	);
-	
+// Default ctor
+public ProductPurchased() {}
+
+// Default finder
+public static Finder<Long,ProductPurchased> find = new Finder<Long,ProductPurchased>(
+	    Long.class, ProductPurchased.class
+);
+
 }

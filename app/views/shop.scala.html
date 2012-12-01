@@ -9,7 +9,7 @@
 	<h3> Products </h3>
 	<ul>
 	@for(p : ProductSale <- products_list) {
-		<li>@p.product_info.label | @p.price (x@p.quantity)</li>
+		<li>@p.product_info.label | @p.price (x@p.stock)</li>
 	}
 	</ul>
 } else {
