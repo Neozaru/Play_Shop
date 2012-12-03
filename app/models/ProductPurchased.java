@@ -51,4 +51,6 @@ public static Finder<Long,ProductPurchased> find = new Finder<Long,ProductPurcha
 	    Long.class, ProductPurchased.class
 );
 
+
+
 }

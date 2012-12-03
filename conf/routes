@@ -38,6 +38,14 @@ POST	/admin/delete_product_sale/:product_info_id		controllers.Admin.delete_produ
 GET		/cart						controllers.Application.cart()
 
 
+
+# Exemple de route a generer pour l'action/transition "loginUser"
+
+#GET	/[nomActionState/]	controllers.[nomControleurGlobalQueIlSeraFixeDoncOsef()/].[nomActionState/]()
+GET		/loginuser		controllers.MainController.loginuser()
+
+###
+
 ## REST
 
 
