@@ -17,8 +17,6 @@
 	<a class="brand" href="#"> <img class="align-left" src="./asset/img/logood.png" height="75"></a>
 	@if(session.get("user_login") && !session.get("user_login").isEmpty()){
 	<h3>Welcome @session.get("user_login")</h3>
-	<!-- <a id="user_cart" alt="your cart" href="/cart">Cart</a> -->
-	<form method="POST" action="logout" style="display:inline-block;"><input type="submit" value="Logout"  ></form>
 	} else {
 	<h3>You are not connected</h3>
 	}
@@ -47,21 +45,28 @@
 		  <li >	      
 		    <a href="register">Register</a>
 		  </li >	      
+
 		  }
 		  <!-- <li class="dropdown account"> -->
 		  <!--   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account<b class="caret"></b></a> -->
-		    <!-- <ul class="dropdown-menu"> -->
-	  	    <!--   <li class="sign-out nav-header">Sign in</li> -->
-	  	    <!--   <li class="sign-out"><a href="#" id="github-login">Github login</a></li> -->
-	  	    <!--   <li class="sign-in"><a href="#" id="sign-out">Sign out</a></li> -->
-		    <!-- </ul> -->
+		  <!-- <ul class="dropdown-menu"> -->
+	  	  <!--   <li class="sign-out nav-header">Sign in</li> -->
+	  	  <!--   <li class="sign-out"><a href="#" id="github-login">Github login</a></li> -->
+	  	  <!--   <li class="sign-in"><a href="#" id="sign-out">Sign out</a></li> -->
+		  <!-- </ul> -->
 		  <!-- </li> -->
 		  <!-- Start of user code post nav -->
 		</ul>
+		@if(session.get("user_login") && !session.get("user_login").isEmpty()){
 		<ul class="nav" style="float: right;">
-		  <li class="">
-		    <a href="#">LOGOUT_No_FONCTIONAL</a>
+		  <li class="active">
+		    <form action="logout" style="margin-top:5px" method="post">
+		      <a href="javascript:;"  onclick="parentNode.submit();">Logout</a>
+		      <input type="hidden" name="Logout"/>
+		    </form>
+
 		  </li>
+		  }
 		</ul>
 	      </div>
 	    </div>	  
